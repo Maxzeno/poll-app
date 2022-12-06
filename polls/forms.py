@@ -4,14 +4,14 @@ from .models import Poll, Choice
 
 class PollAddForm(forms.ModelForm):
 
-    choice1 = forms.CharField(label='Choice 1', max_length=100, min_length=2,
-                              widget=forms.TextInput(attrs={'class': 'form-control'}))
-    choice2 = forms.CharField(label='Choice 2', max_length=100, min_length=2,
-                              widget=forms.TextInput(attrs={'class': 'form-control'}))
+    # choice1 = forms.CharField(label='Choice 1', max_length=100, min_length=1,
+    #                           widget=forms.TextInput(attrs={'class': 'form-control'}))
+    # choice2 = forms.CharField(label='Choice 2', max_length=100, min_length=1,
+    #                           widget=forms.TextInput(attrs={'class': 'form-control'}))
 
     class Meta:
         model = Poll
-        fields = ['text', 'choice1', 'choice2']
+        fields = ['text']
         widgets = {
             'text': forms.Textarea(attrs={'class': 'form-control', 'rows': 5, 'cols': 20}),
         }
@@ -20,7 +20,7 @@ class PollAddForm(forms.ModelForm):
 class EditPollForm(forms.ModelForm):
     class Meta:
         model = Poll
-        fields = ['text', ]
+        fields = ['text']
         widgets = {
             'text': forms.Textarea(attrs={'class': 'form-control', 'rows': 5, 'cols': 20}),
         }
@@ -29,7 +29,7 @@ class EditPollForm(forms.ModelForm):
 class ChoiceAddForm(forms.ModelForm):
     class Meta:
         model = Choice
-        fields = ['choice_text', ]
+        fields = ['choice_text']
         widgets = {
             'choice_text': forms.TextInput(attrs={'class': 'form-control', })
         }

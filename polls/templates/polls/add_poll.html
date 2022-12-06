@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container">
+<div class="container mt-3">
     <div class="row center">
         <div class="col-md-6 offset-md-3">
             <h2>Create new poll</h2>
@@ -22,7 +22,7 @@
                 </div>
                 {% endfor %}
                 <button type="submit" class="btn btn-primary">Add Poll</button>
-                <a class="btn btn-warning" href="{% url 'polls:list' %}" role="button">Back</a>
+                <a class="btn btn-light" href="{% url 'polls:list' %}" role="button">Back</a>
             </form>
         </div>
     </div>
