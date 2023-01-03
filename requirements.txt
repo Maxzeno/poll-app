@@ -4,3 +4,7 @@ pytz==2020.5
 sqlparse==0.4.2
 whitenoise==6.1.0
 python-decouple==3.6
+gunicorn
+psycopg2
+Pillow
+
