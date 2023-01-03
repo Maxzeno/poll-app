@@ -32,7 +32,6 @@ def polls_list(request):
 
     get_dict_copy = request.GET.copy()
     params = get_dict_copy.pop('page', True) and get_dict_copy.urlencode()
-    print(params)
     context = {
         'polls': polls,
         'params': params,
@@ -87,7 +86,7 @@ def polls_add(request):
 def polls_edit(request, poll_id):
     poll = get_object_or_404(Poll, pk=poll_id)
     if request.user != poll.owner:
-        return redirect('home')
+        return redirect('main:index')
 
     if request.method == 'POST':
         form = EditPollForm(request.POST, instance=poll)
@@ -107,7 +106,7 @@ def polls_edit(request, poll_id):
 def polls_delete(request, poll_id):
     poll = get_object_or_404(Poll, pk=poll_id)
     if request.user != poll.owner:
-        return redirect('home')
+        return redirect('main:index')
     poll.delete()
     messages.success(request, "Poll Deleted successfully.",
                      extra_tags='alert alert-success alert-dismissible fade show')
@@ -118,7 +117,7 @@ def polls_delete(request, poll_id):
 def add_choice(request, poll_id):
     poll = get_object_or_404(Poll, pk=poll_id)
     if request.user != poll.owner:
-        return redirect('home')
+        return redirect('main:index')
 
     if request.method == 'POST':
         form = ChoiceAddForm(request.POST)
@@ -142,7 +141,7 @@ def choice_edit(request, choice_id):
     choice = get_object_or_404(Choice, pk=choice_id)
     poll = get_object_or_404(Poll, pk=choice.poll.id)
     if request.user != poll.owner:
-        return redirect('home')
+        return redirect('main:index')
 
     if request.method == 'POST':
         form = ChoiceAddForm(request.POST, instance=choice)
@@ -168,7 +167,7 @@ def choice_delete(request, choice_id):
     choice = get_object_or_404(Choice, pk=choice_id)
     poll = get_object_or_404(Poll, pk=choice.poll.id)
     if request.user != poll.owner:
-        return redirect('home')
+        return redirect('main:index')
     choice.delete()
     messages.success(
         request, "Choice Deleted successfully.", extra_tags='alert alert-success alert-dismissible fade show')
@@ -201,7 +200,6 @@ def poll_vote(request, poll_id):
         choice = Choice.objects.get(id=choice_id)
         vote = Vote(user=request.user, poll=poll, choice=choice)
         vote.save()
-        print(vote)
         return render(request, 'polls/poll_result.html', {'poll': poll})
     else:
         messages.error(
@@ -214,7 +212,7 @@ def poll_vote(request, poll_id):
 def endpoll(request, poll_id):
     poll = get_object_or_404(Poll, pk=poll_id)
     if request.user != poll.owner:
-        return redirect('home')
+        return redirect('main:index')
 
     if poll.active is True:
         poll.active = False
